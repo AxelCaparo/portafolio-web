@@ -4,7 +4,17 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     
-    <!-- Forzar descarga de archivos .java como texto plano -->
+    <!-- 1. CONFIGURACIÓN EXPLÍCITA DEL SERVLET (Para asegurar que Render lo encuentre) -->
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>servlets.DownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+
+    <!-- 2. FORZAR DESCARGA DE ARCHIVOS .JAVA -->
     <mime-mapping>
         <extension>java</extension>
         <mime-type>application/octet-stream</mime-type>
@@ -15,6 +25,7 @@
         <mime-type>text/plain</mime-type>
     </mime-mapping>
     
+    <!-- 3. CONFIGURACIÓN DE SESIÓN Y ARCHIVO DE INICIO -->
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
