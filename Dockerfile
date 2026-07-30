@@ -3,11 +3,14 @@ FROM tomcat:9.0-jdk21
 # Limpiar apps por defecto
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-# Copiar el archivo .war compilado de NetBeans
+# Copiar el WAR
 COPY dist/*.war /usr/local/tomcat/webapps/ROOT.war
 
-# Forzar IPv4 en Tomcat para evitar bloqueos de red interna
+# AGREGADO: Forzar copia de los archivos de código directamente al servidor
+COPY web/semanas/ /usr/local/tomcat/webapps/ROOT/semanas/
+
+# Forzar IPv4
 ENV JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true"
 
-# Reemplazar la linea del conector en server.xml para obligar a escuchar en 0.0.0.0 y en el $PORT de Railway
+# Iniciar Tomcat
 CMD sed -i 's/<Connector port="8080"/<Connector port="'"${PORT:-8080}"'" address="0.0.0.0"/g' /usr/local/tomcat/conf/server.xml && catalina.sh run
