@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <!-- 1. CONFIGURACIÓN EXPLÍCITA DEL SERVLET (Para asegurar que Render lo encuentre) -->
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>servlets.DownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+
+    <!-- 2. FORZAR DESCARGA DE ARCHIVOS .JAVA -->
+    <mime-mapping>
+        <extension>java</extension>
+        <mime-type>application/octet-stream</mime-type>
+    </mime-mapping>
+    
+    <mime-mapping>
+        <extension>java</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
+    
+    <!-- 3. CONFIGURACIÓN DE SESIÓN Y ARCHIVO DE INICIO -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+</web-app>
